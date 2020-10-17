@@ -1,27 +1,47 @@
 package io.github.mat3e;
 
+
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+
+
+@Entity
+@Table(name="LANGUAGES")
 public class Language {
-    private Long   id;
-    private String welcomeMSG;
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
+    private  Integer   id;
+    @Column(name="MSG")
+    private String MSG;
+    @Column(name="CODE")
     private String code;
 
-    public Language(Long id, String welcomeMSG, String code) {
+    /**
+     * Hibernate needs it
+     */
+    @SuppressWarnings("unused")
+    public Language(){}
+
+    public Language(Integer id, String MSG, String code) {
         this.id = id;
-        this.welcomeMSG = welcomeMSG;
+        this.MSG = MSG;
         this.code = code;
     }
 
-    public Long getId() {
+
+    public Integer getId() {
         return id;
     }
 
 
-    public String getWelcomeMSG() {
-        return welcomeMSG;
+    public String getMSG() {
+        return MSG;
     }
 
-    public void setWelcomeMSG(String welcomeMSG) {
-        this.welcomeMSG = welcomeMSG;
+    public void setMSG(String MSG) {
+        this.MSG = MSG;
     }
 
     public String getCode() {

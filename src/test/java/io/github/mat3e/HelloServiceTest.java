@@ -9,8 +9,8 @@ import static org.junit.Assert.assertEquals;
 public class HelloServiceTest {
     LanguageRepo mockRepo=new LanguageRepo(){
         @Override
-        Optional<Language> findById(Long id) {
-            return Optional.of(new Language(1L,"Hello","en"));
+        Optional<Language> findById(Integer id) {
+            return Optional.of(new Language(1,"Hello","en"));
         }
     };
 
@@ -38,7 +38,7 @@ public class HelloServiceTest {
         var fallbackwelcome="Hola";
         var SUT=new HelloService(new LanguageRepo(){
             @Override
-            Optional<Language> findById(Long id) {
+            Optional<Language> findById(Integer id) {
                 if(id.equals(HelloService.defaultLanguage.getId())){return Optional.of(new Language(null,fallbackwelcome,null));}
                 else return Optional.empty();
             }
@@ -47,5 +47,20 @@ public class HelloServiceTest {
         var respons=SUT.doGreeting(null,"abc");
         //then
         assertEquals( fallbackwelcome+" "+HelloService.defaultString,respons);
+    }
+
+    @Test
+    public void test_prepareGreeting_nonExistingLang_returnsGreetingWithFallbackLang(){
+        var SUT=new HelloService(new LanguageRepo(){
+            @Override
+            Optional<Language> findById(Integer id) {
+                 return Optional.empty();
+            }
+        });
+
+        //given+when
+        var respons=SUT.doGreeting(null,"-1");
+        //then
+        assertEquals(HelloService.defaultLanguage.getMSG()+" "+HelloService.defaultString,respons);
     }
 }

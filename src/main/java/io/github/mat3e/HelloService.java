@@ -4,7 +4,7 @@ import java.util.Optional;
 
 class HelloService {
     static String defaultString="world";
-    static Language defaultLanguage=new Language(1L,"Hello","en");
+    static Language defaultLanguage=new Language(1,"Hello","en");
     private LanguageRepo languageRepo;
     HelloService(){this(new LanguageRepo());}
     HelloService(LanguageRepo languageRepo) {
@@ -13,14 +13,16 @@ class HelloService {
 
 
     String doGreeting(String name,String lang){
-        Long langId;
+        Integer langId;
+
         try{
-            langId=Optional.ofNullable(lang).map(Long::valueOf).orElse(defaultLanguage.getId());
+            langId=Optional.ofNullable(lang).map(Integer::valueOf).orElse(defaultLanguage.getId());
         }catch (NumberFormatException e){
             langId=defaultLanguage.getId();
         }
-        var welcomeMsg=languageRepo.findById(langId).orElse(defaultLanguage).getWelcomeMSG();
+        var welcomeMsg=languageRepo.findById(langId).orElse(defaultLanguage).getMSG();
         var text= Optional.ofNullable(name).orElse(defaultString);
         return welcomeMsg+ " " + text;
     }
+     boolean addLanguagesToDB(String MSG,String code){ return languageRepo.addNewLanguageToDB(MSG,code);}
 }

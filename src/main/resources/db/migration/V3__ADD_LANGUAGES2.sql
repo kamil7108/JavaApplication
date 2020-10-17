@@ -1,0 +1,1 @@
+INSERT INTO LANGUAGES (MSG,CODE) VALUES('Guten Morgen','du');
