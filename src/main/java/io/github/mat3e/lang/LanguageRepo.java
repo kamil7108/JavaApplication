@@ -1,12 +1,15 @@
-package io.github.mat3e;
+package io.github.mat3e.lang;
 
 
+import io.github.mat3e.HibernateUtil;
+
+import java.util.List;
 import java.util.Optional;
 
 
-class LanguageRepo {
+public class LanguageRepo {
 
-    Optional<Language> findById(Integer id){
+   public Optional<Language> findById(Integer id){
         var session= HibernateUtil.getSessionFactory().openSession();
         var transaction=session.beginTransaction();
         var result=session.get(Language.class,id);
@@ -14,7 +17,8 @@ class LanguageRepo {
         session.close();
         return Optional.ofNullable(result);
     }
-      boolean  addNewLanguageToDB(String MSG,String code){
+
+     public boolean  addNewLanguageToDB(String MSG,String code){
         var session= HibernateUtil.getSessionFactory().openSession();
         var transaction=session.beginTransaction();
         Language newLang=new Language();
@@ -25,11 +29,21 @@ class LanguageRepo {
         transaction.commit();
         session.close();
         return true;
-        }catch (Exception e){
+        }catch (Exception e) {
             session.close();
             return false;
         }
+    }
 
+    public List<Language> findAll(){
+        var session= HibernateUtil.getSessionFactory().openSession();
+        var transaction=session.beginTransaction();
+
+        var result=session.createQuery("from Language",Language.class).list();
+
+        transaction.commit();
+        session.close();
+        return result;
 
     }
 }

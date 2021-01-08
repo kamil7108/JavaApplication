@@ -1,5 +1,8 @@
 package io.github.mat3e;
 
+import io.github.mat3e.hello.HelloService;
+import io.github.mat3e.lang.Language;
+import io.github.mat3e.lang.LanguageRepo;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -7,9 +10,9 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 
 public class HelloServiceTest {
-    LanguageRepo mockRepo=new LanguageRepo(){
+    LanguageRepo mockRepo =new LanguageRepo(){
         @Override
-        Optional<Language> findById(Integer id) {
+        public Optional<Language> findById(Integer id) {
             return Optional.of(new Language(1,"Hello","en"));
         }
     };
@@ -38,7 +41,7 @@ public class HelloServiceTest {
         var fallbackwelcome="Hola";
         var SUT=new HelloService(new LanguageRepo(){
             @Override
-            Optional<Language> findById(Integer id) {
+           public Optional<Language> findById(Integer id) {
                 if(id.equals(HelloService.defaultLanguage.getId())){return Optional.of(new Language(null,fallbackwelcome,null));}
                 else return Optional.empty();
             }
@@ -53,7 +56,7 @@ public class HelloServiceTest {
     public void test_prepareGreeting_nonExistingLang_returnsGreetingWithFallbackLang(){
         var SUT=new HelloService(new LanguageRepo(){
             @Override
-            Optional<Language> findById(Integer id) {
+           public Optional<Language> findById(Integer id) {
                  return Optional.empty();
             }
         });

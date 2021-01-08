@@ -1,18 +1,21 @@
-package io.github.mat3e;
+package io.github.mat3e.hello;
+
+import io.github.mat3e.lang.Language;
+import io.github.mat3e.lang.LanguageRepo;
 
 import java.util.Optional;
 
-class HelloService {
-    static String defaultString="world";
-    static Language defaultLanguage=new Language(1,"Hello","en");
-    private LanguageRepo languageRepo;
+public class HelloService {
+    public static String       defaultString   ="world";
+    public static Language     defaultLanguage =new Language(1,"Hello","en");
+    private       LanguageRepo languageRepo;
     HelloService(){this(new LanguageRepo());}
-    HelloService(LanguageRepo languageRepo) {
+   public HelloService(LanguageRepo languageRepo) {
         this.languageRepo=languageRepo;
     }
 
 
-    String doGreeting(String name,String lang){
+    public String doGreeting(String name,String lang){
         Integer langId;
 
         try{

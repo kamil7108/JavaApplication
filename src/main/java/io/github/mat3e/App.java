@@ -12,7 +12,7 @@ import org.eclipse.jetty.webapp.*;
 public class App {
     public static void main(String[] args) throws Exception {
        var webapp=new WebAppContext();
-        webapp.setResourceBase("src/main/webapp/WEB-INF");
+        webapp.setResourceBase("src/main/webapp");
         webapp.setContextPath("/");
         webapp.setConfigurations(new Configuration[]
                 {
@@ -25,8 +25,9 @@ public class App {
                         new PlusConfiguration(),
                         new JettyWebXmlConfiguration()
                 });
-        //webapp.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/classes/.*");
-        webapp.addServlet(HelloServlet.class,"/api/*");
+        webapp.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/classes/.*");
+       // webapp.addServlet(HelloServlet.class,"/api");
+      //  webapp.addServlet(LangServlet.class,"/api/langs");
         var server = new Server(8080);
         server.setHandler(webapp);
         server.addLifeCycleListener(new AbstractLifeCycle.AbstractLifeCycleListener() {

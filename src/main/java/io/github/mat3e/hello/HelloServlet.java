@@ -1,4 +1,4 @@
-package io.github.mat3e;
+package io.github.mat3e.hello;
 
 
 import org.slf4j.Logger;
@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Hello",urlPatterns = {"/api/*"})
+@WebServlet(name = "Hello",urlPatterns = {"/api"})
 public class HelloServlet extends HttpServlet {
+
     private final Logger logger= LoggerFactory.getLogger(HelloServlet.class);
     private final String NAME_PARM="name";
     private final String LANG_PARM="lang";
@@ -26,7 +27,7 @@ public class HelloServlet extends HttpServlet {
     HelloServlet(HelloService service){this.service=service;}
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
         logger.info("Got Request with parameters "+req.getParameterMap());
         resp.getWriter().write(service.doGreeting(req.getParameter(NAME_PARM),req.getParameter(LANG_PARM)));
     }

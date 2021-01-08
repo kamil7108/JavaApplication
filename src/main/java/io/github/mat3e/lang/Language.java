@@ -1,4 +1,4 @@
-package io.github.mat3e;
+package io.github.mat3e.lang;
 
 
 import org.hibernate.annotations.GenericGenerator;
@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Table(name="LANGUAGES")
 public class Language {
     @Id
-    @GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
+    @GeneratedValue(generator="inc")
+    @GenericGenerator(name="inc", strategy = "increment")
     private  Integer   id;
     @Column(name="MSG")
     private String MSG;

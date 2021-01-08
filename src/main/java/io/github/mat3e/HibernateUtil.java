@@ -7,14 +7,14 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class HibernateUtil {
+public class HibernateUtil {
     private static final SessionFactory sessionFactory = CreateSessionFactory();
     private static final Logger         logger         = LoggerFactory.getLogger(HibernateUtil.class);
    /**
     * Usage
     * Method returns SessionFactory entity which cannot be created
     * */
-    static SessionFactory getSessionFactory(){return sessionFactory;}
+    public static SessionFactory getSessionFactory(){return sessionFactory;}
 
     /**
      * Usage
@@ -43,5 +43,6 @@ class HibernateUtil {
             throw e;
         }
     }
+
     private HibernateUtil(){}
 }
